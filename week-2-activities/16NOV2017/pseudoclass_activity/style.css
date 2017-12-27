@@ -1,0 +1,21 @@
+a:hover {
+	background-color: red;
+}
+
+a:active {
+	background-color: yellow;
+}
+
+a:focus {
+	background-color: orange;
+}
+
+p.tooltip {
+    display: none;
+    background-color: yellow;
+    padding: 20px;
+}
+
+div:hover p {
+    display: block;
+}

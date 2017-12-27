@@ -1,0 +1,16 @@
+/**
+ * Google Fonts Demo
+ **/
+
+/* Add in the Google Fonts of your choice */
+p.thought1 {
+	font-family: 'Pacifico', cursive;
+}
+
+p.thought2 {
+	font-family: 'Acme', sans-serif;
+}
+
+p.thought3 {
+	font-family: 'Gloria Hallelujah', cursive;
+}

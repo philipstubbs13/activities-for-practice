@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hangman</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div id="header" class="header">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1 class="display-3 text-center mx-5">Hangman</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="row d-flex justify-content-center flex-wrap-reverse">
+        <!-- <div class="col-sm-4 px-5  mx-5 mb-5">
+          <img src="http://via.placeholder.com/300x200" alt="image here">
+        </div> -->
+        <div class="col-sm-6 border border-dark px-4 py-3 mx-5 mb-5 text-center">
+          <h4>Wins: <span id="wins"></span></h4>
+          <h3>Current word</h3>
+          <div class="d-flex justify-content-center">
+            <p><span id="currentWord">?</span></p>
+          </div>
+          <h5>Guesses remaining: <span id="countdown"></span></h5>
+          <h4>Guess the letters</h4>
+          <h5><span id="guessedLetters">_ _ _ _ _ </span></h5> 
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/javascript/logic.js"></script>
+
+  </body>
+</html>

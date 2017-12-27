@@ -1,0 +1,26 @@
+<style>
+
+p {
+font-family: "Lucida Sans Pro", "Lucida Grande", sans-serif;
+}
+
+.boldtext {
+	font-weight: bold;
+}
+
+.enlargefont {
+	font-size: 24px;
+	letter-spacing: 20px;
+}
+
+.increaselineheight {
+	line-height: 50px;
+}
+
+h1 {
+	font-family: 'Roboto', sans-serif;
+}
+
+
+
+</style>

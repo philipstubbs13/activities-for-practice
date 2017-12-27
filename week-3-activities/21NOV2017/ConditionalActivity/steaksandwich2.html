@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Conditional Activity</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+		// Here we ask the user if they eat steak, and store the result (true/false) in a variable.
+		var doYouEatSteak = confirm("Do you eat Steak?");
+
+		if (doYouEatSteak) {
+			document.write ("Here's a steak!");
+		}
+
+		else {
+			document.write ("Here's a Tofu Stir Fry!");
+		}
+
+		// Bonus
+
+		var whatBirthYear = prompt("What year were you born?");
+
+		if (whatBirthYear > 1996) {
+			alert ("No steak for you!");
+		}
+
+		else if (whatBirthYear < 1996) {
+			alert ("Here's a steak sandwich!");
+		}
+
+		else {
+			alert ("You are 21 years old. Here's a steak sandwich!");
+		}
+	</script>
+
+</body>
+</html>
