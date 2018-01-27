@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee Data Management</title>
+
+	<!--Bootstrap CDN link-->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+	<!--Bootswatch link-->
+	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/spacelab/bootstrap.min.css">
+
+	<!--Reset css file-->
+	<!--<link rel="stylesheet" type="text/css" href="assets/css/reset.css">-->
+
+	<!--External css file-->
+	<!--<link rel="stylesheet" type="text/css" href="assets/css/style.css">-->
+
+	<!--Firebase database link-->
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+
+	<!--JQuery link-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	 <!--Add Moment JS-->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+</head>
+<body class="bg-secondary">
+	<div class="container">
+		<div class="card bg-dark mb-4">
+		  <div class="card-body text-white text-center">
+		    <h1 class="card-title">Employee Data Management</h1>
+		    <p class="card-text">A Comprehensive Directory of Employee Billable Hours</p>
+		  </div>
+		</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card mb-4">
+				<div class="card-header bg-primary text-white">
+				Current Employees
+				</div>
+				<div class="card-body">
+					<table class="table table-hover table-responsive-sm">
+						<thead>
+					    	<tr>
+						    	<th scope="col">Employee Name</th>
+						    	<th scope="col">Role</th>
+						    	<th scope="col">Start Date</th>
+						    	<th scope="col">Months Worked</th>
+						    	<th scope="col">Monthly Rate</th>
+						    	<th scope="col">Total Billed ($)</th>
+					    	</tr>
+				  		</thead>
+					  	<tbody id="employee-body">
+					  	</tbody>
+					</table>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header bg-primary text-white">
+				Add Employee
+			  	</div>
+			  	<div class="card-body">
+			  		<form>
+				  		<div class="form-group">
+				    		<label for="employeeName">Employee name</label>
+				    		<input type="text" class="form-control" id="employee-name" placeholder="John Smith">
+				  		</div>
+
+						<div class="form-group">
+						    <label for="Role">Role</label>
+						    <input type="text" class="form-control" id="employee-role" placeholder="">
+						 </div>
+
+						<div class="form-group">
+					    	<label for="startDate">Start Date (DD/MM/YY - ex: 01/01/89)</label>
+					    	<input type="text" class="form-control" id="start-date" placeholder="DD/MM/YY">
+					  	</div>
+
+				  		<div class="form-group">
+				    		<label for="monthlyRate">Monthly Rate</label>
+				    		<input type="text" class="form-control" id="monthly-rate" placeholder="">
+				  		</div>
+
+				  		<button type="submit" class="btn btn-primary rounded" id="submit-button">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript" src="assets/javascript/app.js"></script>
+</body>
+</html>
