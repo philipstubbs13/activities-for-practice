@@ -1,3 +1,5 @@
 
 // process.argv will print out any command line arguments.
-console.log(process.argv);
+var input = process.argv;
+
+console.log(parseFloat(input[2]) + parseFloat(input[3]));
