@@ -1,0 +1,14 @@
+{
+  "name": "greatbay",
+  "version": "1.0.0",
+  "description": "Great Bay",
+  "main": "greatbay.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Phil Stubbs",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^5.1.0"
+  }
+}
