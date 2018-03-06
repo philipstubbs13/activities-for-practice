@@ -1,0 +1,17 @@
+<h1>Movie List</h1>
+
+<ul>
+  {{#each movies}}
+  	<li>
+  	   <p>ID: {{this.id}}</p>
+       <p>Movie: {{this.movie}}</p>
+  	</li>
+  {{/each}}
+</ul>
+
+<form action="/" method="POST">
+	<h1>Add a movie</h1>
+	<textarea type="text" name="movie"></textarea>
+
+	<button type="submit">Submit</button>
+</form>
