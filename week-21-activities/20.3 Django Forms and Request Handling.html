@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8" />
+		<title>20.3 Django Forms and Request Handling</title>
+	</head>
+<body>
+<h1>20.3 Django Forms and Request Handling</h1>
+
+<h3>Welcome to Class Everyone!</h3>
+
+<ul>
+	<li><a href="https://github.com/coding-boot-camp/FullStack-Lesson-Plans/tree/master/02-lesson-plans/part-time/20-Week/Project-Resources"> Review Project Requirements </a></li>
+	<li><a href="https://docs.google.com/presentation/d/1E_W96uW2C6qGCBQkbKyrYIwfeacjl16PtllNFNNaeSY/edit#slide=id.p28">Review Project Deliiverables</a></li>
+</ul>
+
+<h3>Homework - Week 21</h3>
+
+<p><a href="https://umn.bootcampcontent.com/University-of-Minnesota-Boot-Camp/11-06-2017-St-Paul-Class-Repository-FSF/tree/master/01-Class-Content/21-regionalized-content/Django/02-Homework" title="iSnippets">iSnippets</a></p>
+
+<h3>1. Instructor Do: A Better Route</h3>
+
+<ul>
+	<li>Review 07-Models/Solved/users/views.py</li>
+	<li>Review Logic and Deficiency</li>
+	<li>Add a capture group to the URL to capture url parameter</li>
+	<li><code>url(r&#39;^detail/(?P&lt;user_id&gt;[0-9]+)/$&#39;, ...)</code></li>
+	<li><a href="https://regexr.com/3oa0e" title="regexr.com"> regexr.com </a></li>
+</ul>
+
+<h3>2. Partners Do: Fixing the Detail Route (0:20)</h3>
+
+<h3>Instructions:</h3>
+
+<ul>
+	<li>Now that you know how to capture a term from a URL, update your&nbsp;urls.py&nbsp;to allow your own app to do this. It&#39;ll look just like your instructor&#39;s example.</li>
+	<li>Next, update your&nbsp;detail&nbsp;view to retrieve a user with the captured ID.</li>
+	<li>Start your development server and try your new route.</li>
+	<li>What happens if you pass an ID that doesn&#39;t correspond to a user in your database? What should your application do in these circumstances?</li>
+	<li>Read about error handling in Python at this link:&nbsp;<a href="https://wiki.python.org/moin/HandlingExceptions" title="Handling Exceptions">Handling Exceptions</a></li>
+	<li>Explain to your partner how a&nbsp;<code>try</code>/<code>except</code>&nbsp;block works. We&#39;ll go over using them in the review.</li>
+	<li>Read about Django&#39;s Http404 Exception at this link:&nbsp;<a href="https://docs.djangoproject.com/en/1.10/topics/http/views/#the-http404-exception" title="http404-exception">http404-exception </a></li>
+	<li>If you have time, use the code snippet in the above to refactor your code to raise an&nbsp;<code>Http404</code>&nbsp;exception if someone requests details for a user that doesn&#39;t exist. You&#39;ll have to import&nbsp;<code>Http404</code>&nbsp;from&nbsp;<code>django.http</code>.</li>
+</ul>
+
+<h3>3. Instructor Do: Review Activity</h3>
+
+<ul>
+	<li>Review 08-Capture-Groups/Solved/users/views.py</li>
+</ul>
+
+<h3>4. Instructor Do: Generic Views</h3>
+
+<ul>
+	<li>Review 09-Generic-Views/Examples/examples.py</li>
+	<li>Generic views requires you to:
+
+		<ul>
+			<li> Import the generic views you want to use </li>
+			<li>Tell them which models you want them to display</li>
+		</ul></li>
+</ul>
+
+<pre><code>import the generic views you want, and the models they apply to
+from django.views.generic import ListView
+
+import the Models you want to use
+from snippets.models import Snippet
+</code></pre>
+
+<ul>
+	<li>Create a view <code>class</code> that subclasses one of the generic views</li>
+</ul>
+
+<pre><code># Create a class for you modes that subclasses the
+# generic view you  want. This serves as an index view
+Class SnippetListView(ListView):
+	# Finally, tell the generic view what model it
+	# applies  to and which template to use
+	model = Snippet
+	template_name = ‘snippets/index.html’
+</code></pre>
+
+<ul>
+	<li>Our view is now a class, not a function, update urls.py to reflect this</li>
+</ul>
+
+<pre><code># In your urls.py, you’ll need to update the corresponding route
+urls(r’^index/$’, views.SnippetListView.as_view())
+</code></pre>
+
+<h3>5. Partners Do: Generic Views Refactor (0:20)</h3>
+
+<h3>Instructions:</h3>
+
+<ul>
+	<li>For this activity, you&#39;ll be refactoring your code to use Django&#39;s generic list and detail views. The Django tutorial provides a walk-through for doing just this, so it helps to keep it handy:&nbsp;<a href="https://docs.djangoproject.com/en/1.10/intro/tutorial04/" title="Django Generic List Tutorial">Django Generic List Tutorial</a></li>
+	<li>Open up your <code>views.py</code> and import Django&#39;s generic list and detail views.</li>
+	<li>Next, create a class to replace your index view. Be sure to tell it which model and template to use.</li>
+	<li>Open up your <code>urls.py</code> and update the <code>index</code> route. This will look just like your instructor&#39;s example.</li>
+	<li>Now, open up your <code>index.html</code> template. Change your <code>users</code> variable to <code>user_list</code>. This is the name Django&#39;s generic views will pass to the template.</li>
+	<li>Next, you&#39;ll implement the detail view. In <code>views.py</code>, create a class to represent this view.</li>
+	<li>Tell this class which model and template to use. You don&#39;t need to do anything else, here.</li>
+	<li>Open up your <code>urls.py</code> again, and update your <code>detail</code> route. You&#39;ll make a change similar to that you made for your <code>index</code> route.</li>
+	<li>Change the name of your capture group to <code>pk</code>, instead of <code>user_id</code>. A model&#39;s ID is often called its &quot;primary key&quot;, which is what &quot;pk&quot; is short for.</li>
+	<li>Finally, kick up a development server, and make sure everything works as before.</li>
+	<li>You&#39;ll notice something is a bit off in your index view. What is it? What&#39;s causing the error?</li>
+	<li>Can you think of any ways to fix this without updating your view?</li>
+	<li>If you have time, read this section in the Django documentation, and try to fix the problem: <a href="https://docs.djangoproject.com/en/1.10/topics/class-based-views/generic-display/#adding-extra-context" title="Adding Extra Context">Adding Extra Context</a></li>
+	<li>Don&#39;t worry if you don&#39;t. We&#39;ll cover this in review.</li>
+</ul>
+
+<h3>6. Instructor Do: Review Activity</h3>
+
+<ul>
+	<li>Review 09-Generic-Views/Solved/users/views.py</li>
+</ul>
+
+<h3>7. Everyone Do: Model Timestamps &amp; Migrations</h3>
+
+<ul>
+	<li>Open <code>users/models.py</code> and add <code>created_at</code> and <code>modified</code> fields of type <code>models.DateTimeField</code> and set a defualt of <code>now</code></li>
+</ul>
+
+<pre><code>Class User(models.Model):
+	created = models.DateTimeField(default=timezone.now())
+	modified = models.DateTimeField(default=timezone.now())
+</code></pre>
+
+<ul>
+	<li>Next, override the model’s <code>save</code> method</li>
+</ul>
+
+<pre><code>def save(self, *args, **kwargs):
+	&quot;&quot;&quot; Add created_at and updated_at timestamps. &quot;&quot;&quot;
+	if not self.id:
+		self.created = timezone.now()
+
+	self.modified = timezone.now()
+
+	return super(User, self).save(*args, **kwargs)
+</code></pre>
+
+<ul>
+	<li>Back at the top, import the <code>django.util.timezone</code> method:</li>
+</ul>
+
+<pre><code>from django.utils import timezone
+
+# Create your models here.
+class User(models.Model):
+</code></pre>
+
+<h3>8. Break</h3>
+
+<h3>9. Instructor Do Forms &amp; GET/POST Requests</h3>
+
+<ul>
+	<li>Handle either <code>GET</code> or <code>POST</code> requests in the appropriate views</li>
+	<li>Link manually built forms to Django views</li>
+</ul>
+
+<h3>Partners Do: Implementing the Add View (0:30)</h3>
+
+<h3>Instructions:</h3>
+
+<ul>
+	<li>For starters, implement the form in your <code>add.html</code> template. You&#39;ve just seen how to do this—it will look the same as your instructor&#39;s example. Be sure to add an <code>app_name</code> in your <code>urls.py</code>, and set up your <code>action</code> attribute correctly.</li>
+	<li>Next, open up <code>views.py</code>. In your <code>add</code> view, check if the request came in as a <code>GET</code> or <code>POST</code> request. Save the value in a variable called <code>request_type</code>, and pass this to the template as the value of the <code>header</code> key. This way, you can see which type of request is rendering the view.</li>
+	<li>Start your development server, and check the value of <code>request_type</code>. What is it when you hit the route directly? What about when you click the submit button?</li>
+	<li>Once you&#39;re convinced your <code>request_type</code> check is working properly, open up <code>users/views/py</code> again.</li>
+	<li>What should you do if a user sends a <code>GET</code> request? Do you have anything to process, or do you just want to render the template and context like you&#39;ve been doing? Come to a conclusion on this with your partner.</li>
+	<li>If a user sends a <code>POST</code> request, you know you&#39;ll have a <code>POST</code> dictionary with the values they submitted available. Explain to your partner what the names of the keys will be. If you&#39;d like, test your hypothesis by sending the <code>request.POST</code> dictionary back to the template, and printing the values of its keys somewhere. You can access them with bracket syntax just like you would in Python: <code>{{ post_dict[&#39;key&#39;] }}</code>.</li>
+	<li>How do you create a new user with these values? Create one, and save it.</li>
+	<li>Use your form to send some values to your view function. Then, manually hit your <code>index</code> view to see if Django saved your data.</li>
+	<li>If it works as expected—congratulations! You&#39;ve finished the required portion of the activity. If you still have time, work through the points below.</li>
+	<li>While it&#39;s possible to manually navigate to your index view to check if everything worked, it would really be better if Django did that automatically. Read about Django&#39;s redirect method, and use it to accomplish this: <a href="https://docs.djangoproject.com/en/1.10/topics/http/shortcuts/#redirect" title="Django Redirect">Django Redirect</a> . HINT: Use the same syntax you used in the <code>{% url %}</code> tag to refer to the route you want to redirect to.</li>
+	<li>Try to create a user without entering an email address, or either name. What happens? Can you think of any ways to address this? Discuss with your partner, and be prepared to share your ideas with the class.</li>
+	<li>If you&#39;d like to take a stab at dealing with this yourself, look up and use the HTML5 <code>required</code> attribute. Then, think about what you could do in your view to address the problem.</li>
+</ul>
+
+<h3>11. Instructor Do: Review Activity</h3>
+
+<ul>
+	<li>Review 10-Add-Users/Solved/users/templates/users/add.html</li>
+</ul>
+
+<h3>12. Instructor Do: Form Helpers</h3>
+
+<ul>
+	<li>User built-in form helpers to avoid having to write HTML forms by hand</li>
+	<li>Demonstrate the one-to-one correspondence between the data we collect from form inputs and the fields on a model class.</li>
+</ul>
+
+<h3>13. Students Do: Refactoring the Add View (0:30)</h3>
+
+<h3>Instructions:</h3>
+
+<ul>
+	<li>Create a file to put your forms in, and import the class you need.</li>
+	<li>Create a form class for your User, and equip it with the right fields.</li>
+	<li>While you&#39;re at it, update your <code>User</code> model&#39;s <code>email</code> field to use an <code>EmailField</code> rather than a <code>CharField</code>. What two commands do you need to run to integrate this change?</li>
+	<li>Next, open up your views file. Import your form, and drop down to your <code>add</code> view.</li>
+	<li>When a user hits your site with a <code>GET</code> request, pass the rendered form to the template.</li>
+	<li>Update your template to use the <code>form</code> attributes passed in the <code>context</code> dictionary. </li>
+	<li>Back in your views file, update your <code>POST</code> branch. Create a new form with the right argument, and check if the data is valid.</li>
+	<li>What should you do if the data <em>is</em> valid? What about if it isn&#39;t? Implement the proper behavior for each case.</li>
+	<li>Start a development server and make sure everything works properly.</li>
+	<li>You&#39;ll notice that the form looks different than it did when you wrote it by hand. This is because Django&#39;s defaults are different from those you chose for your form.</li>
+	<li>You can change this behavior if you want. Read about Widgets in the Django Forms documentation: <a href="https://docs.djangoproject.com/en/1.10/ref/forms/widgets/#customizing-widget-instances" title="Customizing Widget Instances">Customizing Widget Instances</a> </li>
+	<li>If you have time, see if you can fix the problem for at least one of the inputs. You&#39;ll need to specify a widget for the form field, and set its class attributes the way you had them before.</li>
+	<li>Can you imagine a better solution, or is this good enough?</li>
+</ul>
+
+<h3>14. Instructor Do: Review Activity</h3>
+
+<ul>
+	<li>Review 11-Form-Helpers/Solved</li>
+</ul>
+
+</body>
+</html>
+
+<style>
+/*
+ Ulysses WordPress Preview: WP Twenty Seventeen
+ */
+
+html {
+	box-sizing: border-box;
+}
+
+body {
+	color: #333;
+	background: #fff;
+	font-family: "Libre Franklin", "Helvetica Neue", helvetica, arial, sans-serif;
+	font-size: 0.9375rem;
+	font-weight: 400;
+	line-height: 1.66;
+	margin: 0;
+	padding: 2.5em 2em 2.5em 2em;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+article {
+	position: relative;
+	word-wrap: break-word;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 700px;
+}
+
+article:after {
+	clear: both;
+	content: "";
+	display: block;
+}
+
+p {
+	margin: 0 0 1.5em;
+	padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	clear: both;
+	line-height: 1.4;
+	margin: 0 0 0.75em;
+	padding: 1.5em 0 0;
+}
+
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
+	padding-top: 0;
+}
+
+h1 {
+	font-size: 1.5rem;
+	font-weight: 300;
+}
+
+h1.entry-title {
+	margin-bottom: 0.25em;
+}
+
+h1.entry-title a {
+	color: #333;
+	box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 1);
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
+	text-decoration: none;
+	margin-left: -2px;
+}
+
+h2 {
+	color: #666;
+	font-size: 1.25rem;
+	font-weight: 300;
+}
+
+h3 {
+	color: #333;
+	font-size: 1.125rem;
+	font-weight: 300;
+}
+
+h4 {
+	color: #333;
+	font-size: 1rem;
+	font-weight: 800;
+}
+
+h5 {
+	color: #767676;
+	font-size: 0.8125rem;
+	font-weight: 800;
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+}
+
+h6 {
+	color: #333;
+	font-size: 0.9375rem;
+	font-weight: 800;
+}
+
+dfn, cite, em, i {
+	font-style: italic;
+}
+
+blockquote {
+	color: #666;
+	font-size: 1.125rem;
+	font-style: italic;
+	line-height: 1.7;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+}
+
+blockquote cite {
+	display: block;
+	font-style: normal;
+	font-weight: 600;
+	margin-top: 0.5em;
+}
+
+pre {
+	background: #eee;
+	font-family: "Courier 10 Pitch", Courier, monospace;
+	font-size: 0.9375rem;
+	line-height: 1.6;
+	margin-bottom: 1.6em;
+	max-width: 100%;
+	overflow: auto;
+	padding: 1.6em;
+}
+
+code, kbd, tt, var {
+	font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+	font-size: 0.9375rem;
+}
+
+abbr, acronym {
+	border-bottom: 1px dotted #666;
+	cursor: help;
+}
+
+mark, ins {
+	background: #eee;
+	text-decoration: none;
+}
+
+big {
+	font-size: 125%;
+}
+
+blockquote {
+	quotes: "" "";
+}
+
+q {
+	quotes: "“" "”" "‘" "’";
+}
+
+blockquote:before, blockquote:after {
+	content: "";
+}
+
+:focus {
+	outline: none;
+}
+
+hr {
+	background-color: #bbb;
+	border: 0;
+	height: 1px;
+	margin-bottom: 1.5em;
+}
+
+ul, ol {
+	margin: 0 0 1.5em;
+	padding: 0;
+}
+
+ul {
+	list-style: disc;
+}
+
+ol {
+	list-style: decimal;
+}
+
+li > ul, li > ol {
+	margin-bottom: 0;
+	margin-left: 1.5em;
+}
+
+dt {
+	font-weight: 700;
+}
+
+dd {
+	margin: 0 1.5em 1.5em;
+}
+
+table {
+	border-collapse: collapse;
+	margin: 0 0 1.5em;
+	width: 100%;
+}
+
+thead th {
+	border-bottom: 2px solid #bbb;
+	padding-bottom: 0.5em;
+}
+
+th {
+	padding: 0.4em;
+	text-align: left;
+}
+
+tr {
+	border-bottom: 1px solid #eee;
+}
+
+td {
+	padding: 0.4em;
+}
+
+th:first-child, td:first-child {
+	padding-left: 0;
+}
+
+th:last-child, td:last-child {
+	padding-right: 0;
+}
+
+
+a:focus, a:hover {color:#09f;}
+a {color:#06c;text-decoration:underline;}
+
+figure {
+	width: 350px;
+	margin: 1em 0;
+}
+
+figcaption {
+	color: #666;
+	font-size: 0.8125rem;
+	font-style: italic;
+	margin-bottom: 1.5em;
+}
+
+img, video {
+	height: auto;
+	max-width: 100%;
+}
+
+a img {
+	box-shadow: 0 0 0 8px #fff;
+}
+
+/* Hide standard thumbnail */
+div.post-thumbnail {
+	display: none;
+}
+
+/* Show display big thumbnail at the top */
+div.post-thumbnail-top {
+	display: block !important;
+	margin: -2.5em -2em 3.5em -2em;
+}
+
+div.post-thumbnail-top a img {
+	-webkit-backface-visibility: hidden;
+	transition: opacity 0.2s;
+}
+
+div.post-thumbnail-top a:hover img, div.post-thumbnail-top a:focus img {
+	opacity: 0.7;
+}
+
+/* FONTS for languages with non-latin characters */
+html[lang="ar"] body, html[lang="ary"] body, html[lang="azb"] body, html[lang="fa-IR"] body, html[lang="haz"] body, html[lang="ps"] body, html[lang="ur"] body {
+	font-family: Tahoma, Arial, sans-serif;
+}
+
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4, html[lang="ar"] h5, html[lang="ar"] h6, html[lang="ary"] h1, html[lang="ary"] h2, html[lang="ary"] h3, html[lang="ary"] h4, html[lang="ary"] h5, html[lang="ary"] h6, html[lang="azb"] h1, html[lang="azb"] h2, html[lang="azb"] h3, html[lang="azb"] h4, html[lang="azb"] h5, html[lang="azb"] h6, html[lang="fa-IR"] h1, html[lang="fa-IR"] h2, html[lang="fa-IR"] h3, html[lang="fa-IR"] h4, html[lang="fa-IR"] h5, html[lang="fa-IR"] h6, html[lang="haz"] h1, html[lang="haz"] h2, html[lang="haz"] h3, html[lang="haz"] h4, html[lang="haz"] h5, html[lang="haz"] h6, html[lang="ps"] h1, html[lang="ps"] h2, html[lang="ps"] h3, html[lang="ps"] h4, html[lang="ps"] h5, html[lang="ps"] h6, html[lang="ur"] h1, html[lang="ur"] h2, html[lang="ur"] h3, html[lang="ur"] h4, html[lang="ur"] h5, html[lang="ur"] h6 {
+	font-weight: 700;
+}
+
+html[lang^="zh-"] body {
+	font-family: "PingFang TC", "Helvetica Neue", Helvetica, STHeitiTC-Light, Arial, sans-serif;
+}
+
+html[lang^="zh-"] h1, html[lang^="zh-"] h2, html[lang^="zh-"] h3, html[lang^="zh-"] h4, html[lang^="zh-"] h5, html[lang^="zh-"] h6 {
+	font-weight: 700;
+}
+
+html[lang="bg-BG"] body,
+html[lang="ru-RU"] body,
+html[lang="uk"] body {
+	font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
+}
+
+html[lang="bg-BG"] h1, html[lang="bg-BG"] h2, html[lang="bg-BG"] h3, html[lang="bg-BG"] h4, html[lang="bg-BG"] h5, html[lang="bg-BG"] h6, html[lang="ru-RU"] h1, html[lang="ru-RU"] h2, html[lang="ru-RU"] h3, html[lang="ru-RU"] h4, html[lang="ru-RU"] h5, html[lang="ru-RU"] h6, html[lang="uk"] h1, html[lang="uk"] h2, html[lang="uk"] h3, html[lang="uk"] h4, html[lang="uk"] h5, html[lang="uk"] h6 {
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+html[lang="bn-BD"] body, html[lang="hi-IN"] body, html[lang="mr-IN"] body {
+	font-family: Arial, sans-serif;
+}
+
+html[lang="bn-BD"] h1, html[lang="bn-BD"] h2, html[lang="bn-BD"] h3, html[lang="bn-BD"] h4, html[lang="bn-BD"] h5, html[lang="bn-BD"] h6, html[lang="hi-IN"] h1, html[lang="hi-IN"] h2, html[lang="hi-IN"] h3, html[lang="hi-IN"] h4, html[lang="hi-IN"] h5, html[lang="hi-IN"] h6, html[lang="mr-IN"] h1, html[lang="mr-IN"] h2, html[lang="mr-IN"] h3, html[lang="mr-IN"] h4, html[lang="mr-IN"] h5, html[lang="mr-IN"] h6 {
+	font-weight: 700;
+}
+
+html[lang="el"] body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+html[lang="el"] h1, html[lang="el"] h2, html[lang="el"] h3, html[lang="el"] h4, html[lang="el"] h5, html[lang="el"] h6 {
+	font-weight: 700;
+	line-height: 1.3;
+}
+
+html[lang="gu-IN"] body {
+	font-family: Arial, sans-serif;
+}
+
+html[lang="gu-IN"] h1, html[lang="gu-IN"] h2, html[lang="gu-IN"] h3, html[lang="gu-IN"] h4, html[lang="gu-IN"] h5, html[lang="gu-IN"] h6 {
+	font-weight: 700;
+}
+
+html[lang="he-IL"] body {
+	font-family: "Arial Hebrew", Arial, sans-serif;
+}
+
+html[lang="he-IL"] h1, html[lang="he-IL"] h2, html[lang="he-IL"] h3, html[lang="he-IL"] h4, html[lang="he-IL"] h5, html[lang="he-IL"] h6 {
+	font-weight: 700;
+}
+
+html[lang="ja"] body {
+	font-family: "Hiragino Kaku Gothic Pro", Meiryo, sans-serif;
+}
+
+html[lang="ja"] h1, html[lang="ja"] h2, html[lang="ja"] h3, html[lang="ja"] h4, html[lang="ja"] h5, html[lang="ja"] h6 {
+	font-weight: 700;
+}
+
+html[lang="ko-KR"] body {
+	font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Nanum Gothic", Dotum, sans-serif;
+}
+
+html[lang="ko-KR"] h1, html[lang="ko-KR"] h2, html[lang="ko-KR"] h3, html[lang="ko-KR"] h4, html[lang="ko-KR"] h5, html[lang="ko-KR"] h6 {
+	font-weight: 600;
+}
+
+html[lang="th"] body, {
+	line-height: 1.8;
+	font-family: "Sukhumvit Set", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+html[lang="th"] h1, html[lang="th"] h2, html[lang="th"] h3, html[lang="th"] h4, html[lang="th"] h5, html[lang="th"] h6 {
+	line-height: 1.65;
+	font-family: "Sukhumvit Set", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+html[lang="ar"] *, html[lang="ary"] *, html[lang="azb"] *, html[lang="haz"] *, html[lang="ps"] *, html[lang^="zh-"] *, html[lang="bg-BG"] *, html[lang="ru-RU"] *, html[lang="uk"] *, html[lang="bn-BD"] *, html[lang="hi-IN"] *, html[lang="mr-IN"] *, html[lang="el"] *, html[lang="gu-IN"] *, html[lang="he-IL"] *, html[lang="ja"] *, html[lang="ko-KR"] *, html[lang="th"] * {
+	letter-spacing: 0 !important;
+}
+
+@media screen and (min-width: 30em) {
+
+	body {
+		font-size: 1.125rem;
+	}
+
+	h1 {
+		font-size: 1.875rem;
+	}
+
+	h2, h1.entry-title {
+		font-size: 1.625rem;
+	}
+
+	h3 {
+		font-size: 1.375rem;
+	}
+
+	h4 {
+		font-size: 1.125rem;
+	}
+
+	h5 {
+		font-size: 0.8125rem;
+	}
+
+	h6 {
+		font-size: 1rem;
+	}
+}
+
+@media screen and (min-width: 44em) {
+
+	body {
+		font-size: 1rem;
+		line-height: 1.5;
+	}
+
+	article {
+		max-width: 700px;
+		padding-left: 3em;
+		padding-right: 3em;
+	}
+}
+
+@media print {
+
+	body {
+		font-size: 12pt;
+	}
+
+	h1 {
+		font-size: 24pt;
+	}
+
+	h2 {
+		font-size: 22pt;
+	}
+
+	h3 {
+		font-size: 17pt;
+	}
+
+	h4 {
+		font-size: 12pt;
+	}
+
+	h5 {
+		font-size: 11pt;
+	}
+
+	h6 {
+		font-size: 12pt;
+	}
+
+	h1.entry-title {
+		font-size: 10pt;
+	}
+
+	article {
+		padding-left: 5% !important;
+		padding-right: 5% !important;
+		max-width: none;
+	}
+
+	body {
+		background: none !important;
+	}
+
+	body, a {
+		color: #222 !important;
+	}
+
+	h2, h5, blockquote {
+		color: #777 !important;
+	}
+}
+
+/* FONTS */
+@font-face {
+	font-family: 'Libre Franklin';
+	font-style: normal;
+	font-weight: 300;
+	src: local('Libre Franklin Light'), local('LibreFranklin-Light'), url(https://fonts.gstatic.com/s/librefranklin/v1/1_DGDtljMiPWFs5rl_p0yAG48qXrvqx4pYvMg6UxU-c.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Libre Franklin';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Libre Franklin'), local('LibreFranklin-Regular'), url(https://fonts.gstatic.com/s/librefranklin/v1/PFwjf3aDdAQPvNKUrT3U74n0PH9ugSbMbyJUwgXwvOs.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Libre Franklin';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Libre Franklin Bold'), local('LibreFranklin-Bold'), url(https://fonts.gstatic.com/s/librefranklin/v1/1_DGDtljMiPWFs5rl_p0yETZLxqIXlZWWFpwGW7cLi4.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Libre Franklin';
+	font-style: italic;
+	font-weight: 300;
+	src: local('Libre Franklin Light Italic'), local('LibreFranklin-LightItalic'), url(https://fonts.gstatic.com/s/librefranklin/v1/7_V210XP3LBEtEwiCTqho-u_W7oGWh5GemcjV4fMqzE.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Libre Franklin';
+	font-style: italic;
+	font-weight: 400;
+	src: local('Libre Franklin Italic'), local('LibreFranklin-Italic'), url(https://fonts.gstatic.com/s/librefranklin/v1/zrsyK9EytLQ07oRM9IZIsfGUxxGOY1YZZlwiNqP1HiQ.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Libre Franklin';
+	font-style: italic;
+	font-weight: 700;
+	src: local('Libre Franklin Bold Italic'), local('LibreFranklin-BoldItalic'), url(https://fonts.gstatic.com/s/librefranklin/v1/7_V210XP3LBEtEwiCTqho_gS_wbAo-UVERPhlcubOK8.woff) format('woff');
+}
+</style>

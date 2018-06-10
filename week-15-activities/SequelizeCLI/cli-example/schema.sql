@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS `cli-example3`;
+CREATE DATABASE `cli-example3`;
